@@ -51,13 +51,12 @@ def add_ing(word):
         if word.endswith('ie'):
             return word[:-2] + 'ying'
         # Если слово заканчивается на 'e', удаляем 'e' и добавляем 'ing'
-        elif word[-1] == 'e':
+        if word[-1] == 'e':
             return word[:-1] + 'ing'
         # В остальных случаях просто добавляем 'ing' в конец слова
-        else:
-            return word + 'ing'
-    else:
-        return word
+        return word + 'ing'
+
+    return word
 
 
 # Создаем строку со словами
