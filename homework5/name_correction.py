@@ -4,7 +4,7 @@ This program corrects the string starting with an uppercase letter
 
 
 def name_correction():
-    """This function corrects a string starting with an uppercase letter followed by lowercase letters"""
+    """This function corrects a string starting with an uppercase letter"""
     # создаем строку в разных регистрах
     capital = "pARiS"
 

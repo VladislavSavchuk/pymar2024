@@ -14,7 +14,8 @@ def changes_character_1():
 
 
 def changes_character_2():
-    """The function is used to replace a character in a string using the 'for' cycle and assignment operator."""
+    """The function is used to replace a character in a string
+     using the 'for' cycle and assignment operator."""
     # Создаем строку
     my_string = "www.my_site.com#about"
 
@@ -33,7 +34,7 @@ def changes_character_2():
 
 
 def changes_character_3():
-    """The function is used to replace a character in a string used find() method"""
+    """The function is used to replace a character in used find() method"""
     # Создаем строку
     my_str = "www.my_site.com#about"
 
