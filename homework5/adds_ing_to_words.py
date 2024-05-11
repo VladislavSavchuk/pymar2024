@@ -26,10 +26,13 @@ def add_ing_to_words_1():
 add_ing_to_words_1()
 
 
-def add_ing_to_words_2(sentence):
+def add_ing_to_words_2():
     """This function searches through the words and joins words using join()"""
+    # Создаем строку со словами
+    my_string = "study spin prefer die travel see"
+
     # Разбиваем строку на слова при помощи метода split()
-    words = sentence.split()
+    words = my_string.split()
 
     # Создаем пустой список для хранения слов с 'ing'
     ing_words = []
@@ -40,7 +43,7 @@ def add_ing_to_words_2(sentence):
         ing_words.append(add_ing(word))
 
     # Объединяем слова обратно в строку с помощью метода join() через пробел.
-    return ' '.join(ing_words)
+    print("Строка слов с окончанием на 'ing':", ' '.join(ing_words))
 
 
 def add_ing(word):
@@ -59,8 +62,4 @@ def add_ing(word):
     return word
 
 
-# Создаем строку со словами
-MY_STRING = "study spin prefer die travel see"
-
-# Выводим результат
-print("Строка слов с окончанием на 'ing':", add_ing_to_words_2(MY_STRING))
+add_ing_to_words_2()
