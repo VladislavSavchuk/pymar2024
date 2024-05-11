@@ -59,11 +59,8 @@ def add_ing(word):
     return word
 
 
-# игнорируем ошибку pylint 'C0103:Invalid constant name'
-# pylint: disable=invalid-name
-
 # Создаем строку со словами
-my_string = "study spin prefer die travel see"
+MY_STRING = "study spin prefer die travel see"
 
 # Выводим результат
-print("Строка слов с окончанием на 'ing':", add_ing_to_words_2(my_string))
+print("Строка слов с окончанием на 'ing':", add_ing_to_words_2(MY_STRING))
