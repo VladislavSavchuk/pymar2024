@@ -13,19 +13,27 @@ def find_specific_character(data: str) -> str:
     data: str
     return: str
     """
+
     result = []
+
     for char in data:
         if char != '#':
             result.append(char)
         elif result:
             result.pop()
+
     return ''.join(result)
 
 
-assert find_specific_character("a#bc#d") == "bd"
-assert find_specific_character("abc#d##c") == "ac"
-assert find_specific_character("abc##d######") == ""
-assert find_specific_character("#######") == ""
-assert find_specific_character("") == ""
+assert find_specific_character("a#bc#d") == "bd", \
+    "result should be 'bd'"
+assert find_specific_character("abc#d##c") == "ac", \
+    "result should be 'ac'"
+assert find_specific_character("abc##d######") == "", \
+    "function must return empty string"
+assert find_specific_character("#######") == "", \
+    "function must return empty string"
+assert find_specific_character("") == "", \
+    "function must return empty string"
 
 print("All tests passed!")
