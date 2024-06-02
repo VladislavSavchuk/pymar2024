@@ -11,8 +11,11 @@ def calculate_count_character(text: str) -> str:
     It creates an iterator that returns the key and groups
     consecutive items, and then counts the number of those items.
 
-    txt: str
-    return: str
+    Args:
+        text (str): The input string to be processed.
+
+    Returns:
+        str: The processed string with characters removed as specified.
     """
 
     result = []
@@ -37,5 +40,3 @@ assert calculate_count_character("abcde") == "abcde", \
     "result should be 'abcde'"
 assert calculate_count_character("aaabbdefffff") == "a3b2def5", \
     "result should be 'a3b2def5'"
-
-print("All tests passed!")

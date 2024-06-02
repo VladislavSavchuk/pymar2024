@@ -5,13 +5,14 @@ If this character is found - removes the previous character from the string.
 
 
 def find_specific_character(data: str) -> str:
-    """
-    This function finds the “#” character and
-    if this character is found - deletes the previous character
-    from the string
+    """ This function finds the '#' character in a string
+    and deletes the previous character if found.
 
-    data: str
-    return: str
+    Args:
+        data (str): The input string to be processed.
+
+    Returns:
+        str: The processed string with characters removed as specified.
     """
 
     result = []
@@ -35,5 +36,3 @@ assert find_specific_character("#######") == "", \
     "function must return empty string"
 assert find_specific_character("") == "", \
     "function must return empty string"
-
-print("All tests passed!")
