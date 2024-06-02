@@ -10,7 +10,7 @@ def main(n, first_number):
         return
 
     # Вызываем функцию нахождения числа напротив числа в окружности
-    find_opposite_number(n, first_number)
+    return find_opposite_number(n, first_number)
 
 
 def validate_number(n):
@@ -34,11 +34,11 @@ def find_opposite_number(n, first_number):
 
     # Находим остаток от деления полученного значения на 'n'
     result = opposite_number % n
-    print(result)
+    return result
 
 
-main(10, 2)
-main(25, 1)
-main(0, 8)
-main(-13, 3)
-main(5.2, 3)
+assert (main(10, 2)) == 7, 'opposite number must be = 7'
+assert not main(25, 1), "n must be an integer, positive and even number."
+assert not main(0, 8), "n must be an integer, positive and even number."
+assert not main(-13, 3), "n must be an integer, positive and even number."
+assert not main(5.2, 3), "n must be an integer, positive and even number."

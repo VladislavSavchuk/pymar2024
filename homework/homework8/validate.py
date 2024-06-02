@@ -10,12 +10,7 @@ def validate_card(number_card):
 
     # Проверка существования карты
     is_valid = is_credit_card_exist(check_number_card)
-
-    # Проверка валидности карты
-    if is_valid:
-        print(f'Credit card number {check_number_card} is {True}.')
-    else:
-        print(f'Credit card number {check_number_card} is {False}.')
+    return is_valid
 
 
 def check_number_credit_card(number_card):
@@ -50,7 +45,7 @@ def is_credit_card_exist(check_number_card):
     return total_sum % 10 == 0
 
 
-validate_card('378282246310005')
-validate_card('5610591081018250')
-validate_card('30569309025904')
-validate_card('76009244561')
+assert validate_card('378282246310005'), 'must be True'
+assert validate_card('5610591081018250'), 'must be True'
+assert validate_card('30569309025904'), 'must be True'
+assert not validate_card('76009244561'), 'must be False'
