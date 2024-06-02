@@ -7,7 +7,7 @@ def main(n, first_number):
 
     # Проверка валидности числа
     if not validate_number(n):
-        return
+        return None
 
     # Вызываем функцию нахождения числа напротив числа в окружности
     return find_opposite_number(n, first_number)

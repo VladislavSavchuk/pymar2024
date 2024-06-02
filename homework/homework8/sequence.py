@@ -56,5 +56,7 @@ def become_strictly_increasing(sequence):
 assert become_strictly_increasing([1, 2, 3]), 'must be True'
 assert not become_strictly_increasing([1, 2, 1, 2]), 'must be False'
 assert not become_strictly_increasing([1, 3, 2, 1]), 'must be False'
-assert not become_strictly_increasing([1, 2, 3, 4, 5, 3, 5, 6]), 'must be False'
-assert not become_strictly_increasing([40, 50, 60, 10, 20, 30]), 'must be False'
+assert not become_strictly_increasing([1, 2, 3, 4, 5, 3, 5, 6]), \
+    'must be False'
+assert not become_strictly_increasing([40, 50, 60, 10, 20, 30]), \
+    'must be False'
