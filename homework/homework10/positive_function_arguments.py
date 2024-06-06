@@ -4,23 +4,9 @@ This program checks that all function arguments are positive numbers.
 
 
 def validate_arguments(func):
-    """
-    A decorator to validate that all arguments passed to a function
-    are positive integers.
-
-    This decorator iterates over the arguments passed to the decorated
-    function and checks if each argument is a positive integer.
-    If any argument is not a positive integer, it raises a ValueError
-    with an appropriate message.
-
-    Args:
-        func (callable): The function to be decorated.
-
-    Returns:
-        callable: The wrapped function with argument validation.
-
-    Raises:
-        ValueError: If any argument is not a positive integer.
+    """ A decorator to validate that all arguments passed to a function
+    are positive integers. If any argument is not a positive integer
+    show ValueError.
     """
     def wrapper(*args):
         for i in args:
@@ -33,16 +19,7 @@ def validate_arguments(func):
 
 @validate_arguments
 def simple_function(*args):
-    """
-    Prints each argument passed to it.
-
-    This function simply iterates over its arguments and prints each one.
-    The arguments are validated to be positive integers
-    by the validate_arguments decorator.
-
-    Args:
-        *args: Variable length argument list of integers.
-    """
+    """Prints each argument passed to it"""
     for i in args:
         print(i)
 
