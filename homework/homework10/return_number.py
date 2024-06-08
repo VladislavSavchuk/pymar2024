@@ -2,7 +2,6 @@
 This program checks if the result of the function is a number
 and prints an error message if it is not.
 """
-import math
 
 
 def is_number(func):
@@ -18,7 +17,7 @@ def is_number(func):
 @is_number
 def summ(*args, **kwargs):
     """Returns the sum of all arguments if is number"""
-    return math.fsum(args) + math.fsum(kwargs.values())
+    return sum(args) + sum(kwargs.values())
 
 
 assert summ(2, 2) == 4, 'result must be = 4'

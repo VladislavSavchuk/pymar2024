@@ -13,10 +13,7 @@ def typed(types):
         and converts them"""
         @wraps(func)
         def wrapper(*args):
-            list_arg = []
-            for i in args:
-                types(i)
-                list_arg.append(types(i))
+            list_arg = [types(i) for i in args]
             return func(*list_arg)
         return wrapper
     return decorator
