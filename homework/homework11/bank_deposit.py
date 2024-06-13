@@ -22,22 +22,17 @@ class Bank:
 
 class Customer:
     """Initialize customer's"""
-    def __init__(self, name):
+    def __init__(self, name: str):
         """This method outputs the name of the bank's customer"""
         self.name = name
-
-    @staticmethod
-    def create_deposit(deposit_amount: float, period: int, rate: float) -> str:
-        """This method creates a deposit and calculates
-        monthly capitalization"""
-        deposit = Bank(deposit_amount, period, rate)
-        return deposit.calculate_monthly_capitalization()
 
 
 person_1 = Customer('Lionel Messi')
 person_2 = Customer('LeBron James')
 print(person_1.name)
-print(person_1.create_deposit(1000000, 120, 10))
+deposit_person1 = Bank(1000000, 120, 10)
+print(deposit_person1.calculate_monthly_capitalization())
 print()
 print(person_2.name)
-print(person_2.create_deposit(999999.99, 60, 10))
+deposit_person2 = Bank(999999.99, 60, 10)
+print(deposit_person2.calculate_monthly_capitalization())

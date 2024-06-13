@@ -5,12 +5,13 @@ This program shows whether the user can borrow a reserved book.
 
 class Books:
     """Initialize book attributes"""
-    book_name = 'The Lord of the Rings'
-    author = 'J.R.R. Tolkien'
-    isbn = 9785171358136
-    page_count = 1120
-    reserved = False
-    busy = False
+    def __init__(self, book_name, author, isbn, page_count):
+        self.book_name = book_name
+        self.author = author
+        self.isbn = isbn
+        self.page_count = page_count
+        self.reserved = False
+        self.busy = False
 
     def get_description_book(self):
         """Get description of the book"""
@@ -67,7 +68,8 @@ class User:
         return book.returning()
 
 
-book_1 = Books()
+book_1 = Books('The Lord of the Rings', 'J.R.R. Tolkien',
+               9785171358136, 1120)
 book_1.get_description_book()
 
 user_1 = User()
