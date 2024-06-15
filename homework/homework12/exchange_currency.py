@@ -30,16 +30,9 @@ class Bank:
 
 class Customer:
     """Initialize customer's"""
-    def __init__(self, name: str):
-        """This method outputs the name of the bank's customer"""
-        self.name = name
-
-
-class Person:
-    """This class contains method outputs names, amount
-    and currency person's"""
-    def __init__(self, name: str, curr: str, amount: int):
-        """TThis method stores currency and amount person's money"""
+    def __init__(self, name: str, curr: str, amount: float):
+        """This method outputs the name, currency and
+        amount of the bank's customer"""
         self.name = name
         self.currency = curr
         self.amount = amount
@@ -66,8 +59,8 @@ class Currency:
         return round(converted_amount, 2), to_currency
 
 
-person_1 = Customer('Lionel Messi')
-person_2 = Customer('LeBron James')
+person_1 = Customer('Lionel Messi', 'USD', 10)
+person_2 = Customer('LeBron James', 'EUR', 5)
 print(person_1.name)
 deposit_person1 = Bank(1000000, 120, 10)
 print(deposit_person1.calculate_monthly_capitalization())
@@ -78,8 +71,8 @@ print(deposit_person2.calculate_monthly_capitalization())
 
 currency = Currency()
 
-person_1 = Person('Lionel', 'USD', 10)
-person_2 = Person('LeBron', 'EUR', 5)
+person_1 = Customer('Lionel', 'USD', 10)
+person_2 = Customer('LeBron', 'EUR', 5)
 
 assert (Bank.exchange_currency(person_1.currency, person_1.amount) ==
         (31.9, "BYN")), "Conversion error"
