@@ -11,19 +11,21 @@ class Bank:
         self.period = period  # period of the deposit in months
         self.rate = rate  # annual rate % divided by 100
         self.currency = Currency
-        print('Deposit created')
+
+    def __str__(self):
+        return (f"Deposit created. Amount: {self.deposit_amount}$, "
+                f"period: {self.period} month, rate: {self.rate}%")
 
     def calculate_monthly_capitalization(self):
         """This method calculates the monthly capitalization
         of the customer's amount"""
         result = round((self.deposit_amount * (1 + (self.rate / 100) / 12)
                         ** self.period), 2)
-
-        return (f'Monthly capitalization of amount {self.deposit_amount}$ '
-                f'for {self.period} months equals to {result}$')
+        return f'Monthly capitalization equals to {result}$'
 
     @staticmethod
-    def exchange_currency(from_currency, amount, to_currency='BYN'):
+    def exchange_currency(from_currency: str, amount: float,
+                          to_currency='BYN'):
         """This method return converted amount"""
         return currency.convert(from_currency, amount, to_currency)
 
@@ -45,7 +47,7 @@ class Currency:
         """This method stores exchange rates in the rates dictionary"""
         self.rates = {'USD': 3.19, 'EUR': 3.45, 'BYN': 1.0}
 
-    def convert(self, from_currency, amount, to_currency='BYN'):
+    def convert(self, from_currency: str, amount: float, to_currency='BYN'):
         """This method checks the current currency in list currency
         and then converts it"""
         if from_currency not in self.rates or to_currency not in self.rates:
@@ -63,10 +65,12 @@ person_1 = Customer('Lionel Messi', 'USD', 10)
 person_2 = Customer('LeBron James', 'EUR', 5)
 print(person_1.name)
 deposit_person1 = Bank(1000000, 120, 10)
+print(deposit_person1)
 print(deposit_person1.calculate_monthly_capitalization())
 print()
 print(person_2.name)
 deposit_person2 = Bank(999999.99, 60, 10)
+print(deposit_person2)
 print(deposit_person2.calculate_monthly_capitalization())
 
 currency = Currency()

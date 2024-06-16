@@ -50,15 +50,14 @@ class CardsDeck:
 
 deck = CardsDeck()
 deck.shuffle()
-while True:
-    try:
-        card_number = int(input('Choose card from deck 54 cards: '))
-        card = deck.get()
-        if card:
-            print(f'Your card is: {card}')
-        else:
-            print('Invalid card number. '
-                  'Please choose a number card between 0 and 53')
-            card_number = int(input('Choose card from deck 54 cards again: '))
-    except ValueError:
-        print("Error! You need enter an integer")
+
+try:
+    card_number = int(input('Choose card from deck 54 cards: '))
+    card = deck.get()
+    if card:
+        print(f'Your card is: {card}')
+    else:
+        print('Invalid card number. '
+              'Please choose a number card between 0 and 53')
+except ValueError:
+    print("Error! You need enter an integer")
