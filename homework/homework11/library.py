@@ -13,13 +13,13 @@ class Books:
         self.reserved = False
         self.busy = False
 
-    def get_description_book(self):
+    def __str__(self):
         """Get description of the book"""
         descr = (f'book_name: {self.book_name}, '
                  f'author: {self.author}, '
                  f'isbn: {str(self.isbn)}, '
                  f'page_count: {str(self.page_count)}')
-        print(f'Book Description: {descr}')
+        return f'Book Description: {descr}'
 
     def reservation(self):
         """This method allows the user to reserve a book if it is not busy"""
@@ -70,7 +70,7 @@ class User:
 
 book_1 = Books('The Lord of the Rings', 'J.R.R. Tolkien',
                9785171358136, 1120)
-book_1.get_description_book()
+print(book_1)
 
 user_1 = User()
 user_2 = User()
