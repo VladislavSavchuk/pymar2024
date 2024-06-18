@@ -81,7 +81,7 @@ print(user_2.take_book(book_1))
 print()
 
 print(user_1.return_book(book_1))
-print(user_2.reserve_book(book_1))
+print(user_2.take_book(book_1))
 print()
 
 print(user_1.take_book(book_1))
