@@ -5,7 +5,7 @@ subtraction, multiplication, division and addition to degree.
 """
 
 
-def parse_expression(expression):
+def parse_expression(expression: str) -> list:
     """The function parses an expression, defines values and operators,
     and returns a list of tokens"""
     tokens = []
@@ -17,7 +17,7 @@ def parse_expression(expression):
     return tokens
 
 
-def priority(op):
+def priority(op: str) -> int:
     """The function determines the priority of the operator"""
     if op in ('+', '-'):
         return 1
@@ -28,7 +28,7 @@ def priority(op):
     return 0
 
 
-def apply_operator(operators, values):
+def apply_operator(operators: list, values: list):
     """The function extracts the operator from the stack and
     the values to the left and right of the operator"""
     operand = operators.pop()
@@ -46,7 +46,7 @@ def apply_operator(operators, values):
         values.append(left ** right)
 
 
-def evaluate_expression(tokens):
+def evaluate_expression(tokens: list) -> float:
     """The function defines values and operators and does the calculation
     according to the priority of the operators"""
     values = []
