@@ -5,7 +5,7 @@ subtraction, multiplication, division and addition to degree.
 """
 
 
-def parse_expression(expression: str) -> list:
+def parse_expression(expression) -> list:
     """The function parses an expression, defines values and operators,
     and returns a list of tokens"""
     tokens = []
@@ -46,7 +46,7 @@ def apply_operator(operators: list, values: list):
         values.append(left ** right)
 
 
-def evaluate_expression(tokens: list) -> float:
+def evaluate_expression(tokens):
     """The function defines values and operators and does the calculation
     according to the priority of the operators"""
     values = []
