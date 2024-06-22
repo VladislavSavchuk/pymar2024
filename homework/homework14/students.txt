@@ -1,0 +1,15 @@
+Serena Williams,1A,5,4,4,3
+Lionel Messi,2B,4,3,5,2
+Kobe Bryant,1A,3,5,4,1
+LeBron James,3C,5,5,4,5
+Jason Brown,2B,4,3,4,4
+Cristiano Ronaldo,3C,5,5,5,4
+Alisa Schmidt,1A,4,4,4,5
+Marko Reus,2B,3,3,4,5
+Erling Holland,3C,5,4,5,5
+Roberto Carlos,1A,1,1,0,1
+
+Total students: 10
+Group 1A: 4 students, Average_grade: 3.06
+Group 2B: 3 students, Average_grade: 3.67
+Group 3C: 3 students, Average_grade: 4.75
