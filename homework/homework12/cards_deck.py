@@ -41,21 +41,26 @@ class CardsDeck:
         """This method shuffles the cards"""
         random.shuffle(self.cards)
 
-    def get(self) -> str | None:
+    def get(self, card_number: int) -> str | None:
         """This method checks range amount cards and return a card"""
-        if 0 <= card_number < len(self.cards):
-            return self.cards[card_number]
+        try:
+            if 0 <= card_number < len(self.cards):
+                return self.cards[card_number]
+        except TypeError as e:
+            print(e)
         return None
 
 
 deck = CardsDeck()
 deck.shuffle()
 
+print(deck.get(0))
+print(deck.get(27))
+print(deck.get(53))
+
 try:
-    card_number = int(input('Choose card from deck 54 cards: '))
-    card = deck.get()
-    if card:
-        print(f'Your card is: {card}')
+    if deck:
+        pass
     else:
         print('Invalid card number. '
               'Please choose a number card between 0 and 53')
