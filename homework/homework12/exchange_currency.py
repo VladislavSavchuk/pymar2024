@@ -47,7 +47,8 @@ class Currency:
         """This method stores exchange rates in the rates dictionary"""
         self.rates = {'USD': 3.19, 'EUR': 3.45, 'BYN': 1.0}
 
-    def convert(self, from_currency: str, amount: float, to_currency='BYN') -> tuple:
+    def convert(self, from_currency: str, amount: float,
+                to_currency='BYN') -> tuple:
         """This method checks the current currency in list currency
         and then converts it"""
         if from_currency not in self.rates or to_currency not in self.rates:
