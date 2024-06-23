@@ -5,7 +5,7 @@ subtraction, multiplication, division and addition to degree.
 """
 
 
-def parse_expression(expression) -> list:
+def parse_expression(expression: list) -> list:
     """The function parses an expression, defines values and operators,
     and returns a list of tokens"""
     tokens = []
