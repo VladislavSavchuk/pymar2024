@@ -73,6 +73,7 @@ deposit_person2 = Bank(999999.99, 60, 10)
 print(deposit_person2)
 print(deposit_person2.calculate_monthly_capitalization())
 
+
 currency = Currency()
 
 person_1 = Customer('Lionel', 'USD', 10)
