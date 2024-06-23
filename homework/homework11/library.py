@@ -12,6 +12,7 @@ class Books:
         self.page_count = page_count
         self.reserved = False
         self.busy = False
+        self.reserved_by = None
 
     def __str__(self):
         """Get description of the book"""
@@ -21,31 +22,40 @@ class Books:
                  f'page_count: {str(self.page_count)}')
         return f'Book Description: {descr}'
 
-    def reservation(self):
+    def reservation(self, user):
         """This method allows the user to reserve a book if it is not busy"""
-        if not self.busy:
+        if not self.busy and not self.reserved:
             self.reserved = True
+            self.reserved_by = user
             return "Book has been successfully reserved"
-        return "The book is busy. You cannot book the book"
+        if self.busy:
+            return "The book is busy. You cannot reserve the book"
+        if self.reserved:
+            return "The book is already reserved. You cannot reserve the book"
+        return None
 
-    def receiving(self):
+    def receiving(self, user):
         """This method allows a user to borrow a book if it is not reserved
         or busy by another user."""
-        if not self.busy and not self.reserved:
+        if not self.busy and (not self.reserved or self.reserved_by == user):
             self.busy = True
+            self.reserved = False
+            self.reserved_by = None
             return "The book is free. You can take the book"
-        if self.reserved:
-            return "The book is reserved. You can't take the book"
+        if self.reserved and self.reserved_by != user:
+            return "The book is reserved by another user"
         return "The book is already taken"
 
     def returning(self):
         """This method allows the user to return the book"""
         if self.busy:
-            self.reserved = False
             self.busy = False
-            return "The book has been returned"
+            if not self.reserved:
+                return "The book has been returned"
+            return "The book has been returned, but it is still reserved"
         if self.reserved:
             self.reserved = False
+            self.reserved_by = None
             return "The book reserve has been canceled"
         return "The book was free"
 
@@ -55,12 +65,12 @@ class User:
     @staticmethod
     def take_book(book):
         """This method allows the user to take the book"""
-        return book.receiving()
+        return book.receiving(User)
 
     @staticmethod
     def reserve_book(book):
         """This method allows the user to reserve a book"""
-        return book.reservation()
+        return book.reservation(User)
 
     @staticmethod
     def return_book(book):
@@ -72,21 +82,29 @@ book_1 = Books('The Lord of the Rings', 'J.R.R. Tolkien',
                9785171358136, 1120)
 print(book_1)
 
-user_1 = User()
-user_2 = User()
+vasya = User()
+petya = User()
 
+print('1')
+print(vasya.take_book(book_1))
+print(petya.take_book(book_1))
 
-print(user_1.take_book(book_1))
-print(user_2.take_book(book_1))
-print()
+print('2')
+print(vasya.return_book(book_1))
+print(petya.take_book(book_1))
 
-print(user_1.return_book(book_1))
-print(user_2.take_book(book_1))
-print()
+print('3')
+print(vasya.take_book(book_1))
+print(petya.return_book(book_1))
 
-print(user_1.take_book(book_1))
-print(user_2.return_book(book_1))
-print()
+print('4')
+print(vasya.reserve_book(book_1))
+print(petya.reserve_book(book_1))
 
-print(user_1.reserve_book(book_1))
-print(user_2.take_book(book_1))
+print('5')
+print(vasya.take_book(book_1))
+print(petya.take_book(book_1))
+
+print('6')
+print(vasya.return_book(book_1))
+print(petya.return_book(book_1))
