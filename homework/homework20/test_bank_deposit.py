@@ -1,19 +1,16 @@
 """This program covers the "Bank Deposit" program with tests"""
 
-import logging
 import unittest
-from bank_deposit import Bank, Customer
+import datetime
+from loguru import logger
+from homework.homework11.bank_deposit import Bank, Customer
 
 # Configure logger
-logging.basicConfig(filename='test_app.log',
-                    filemode='w',
-                    encoding='utf-8',
-                    format="%(asctime)s - %(name)s - %(levelname)s - "
-                           "%(message)s",
-                    level=logging.INFO
-                    )
-
-logger = logging.getLogger(__name__)
+current_time = datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+logger.add(f'logs/{current_time}_test_bank_deposit.log',
+           format="{time:YYYY-MM-DD HH:mm:ss} | {level} | "
+                  "{file}:{line} | {message}",
+           level='INFO')
 
 
 class TestBank(unittest.TestCase):
@@ -29,6 +26,7 @@ class TestBank(unittest.TestCase):
 
     def test_bank_initialization(self):
         """Test initialization of the Bank class."""
+        logger.info("Testing Bank attributes")
 
         bank = Bank(1500, 24, 3.5)
         self.assertEqual(bank.deposit_amount, 1500)
@@ -37,6 +35,7 @@ class TestBank(unittest.TestCase):
 
     def test_calculate_monthly_capitalization(self):
         """Test the calculation of monthly capitalization."""
+        logger.info("Testing calculation of monthly capitalization")
 
         bank = Bank(1500, 24, 3.5)
         result = bank.calculate_monthly_capitalization()
@@ -52,6 +51,8 @@ class TestBank(unittest.TestCase):
 
     def test_calculate_monthly_capitalization_edge_cases(self):
         """Test edge cases for monthly capitalization calculation."""
+        logger.info("Testing calculation of monthly capitalization with"
+                    " zero in deposit, period and rate""")
 
         # Test with zero deposit amount
         bank = Bank(0, 12, 5)
@@ -70,6 +71,7 @@ class TestBank(unittest.TestCase):
 
     def test_calculate_monthly_capitalization_negative(self):
         """Test negative cases for monthly capitalization calculation."""
+        logger.info("Testing negative calculation of monthly capitalization""")
 
         bank = Bank(1500, 24, 3.5)
         result = bank.calculate_monthly_capitalization()
@@ -93,22 +95,24 @@ class TestCustomer(unittest.TestCase):
 
     def test_customer_initialization(self):
         """Test initialization of the Customer class."""
+        logger.info("Testing Customer name")
 
         customer = Customer('LeBron James')
         self.assertEqual(customer.name, 'LeBron James')
 
     def test_customer_initialization_negative(self):
         """Test negative case for initialization of the Customer class."""
+        logger.info("Testing negative Customer name")
 
         customer = Customer('LeBron James')
         self.assertNotEqual(customer.name, 'LaBron James')
 
-    @unittest.expectedFailure
     def test_customer_name_update(self):
         """Test updating the name attribute of the Customer class."""
+        logger.info("Testing updating Customer name")
 
         customer = Customer('LeBron James')
-        customer.name = 'Koba Bryant'
+        customer.name = 'Kobe Bryant'
         self.assertEqual(customer.name, 'Kobe Bryant')
 
 
