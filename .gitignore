@@ -6,6 +6,11 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# pytest
+.test_log.log
+htmlcov/
+.cache/
+
 # Environments
 venv*/
 
