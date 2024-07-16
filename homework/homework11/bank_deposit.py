@@ -6,6 +6,12 @@ This program calculates the monthly capitalization of the user's deposit.
 class Bank:
     """Initialize bank deposit attributes"""
     def __init__(self, deposit_amount: float, period: int, rate: float):
+        if deposit_amount < 0:
+            raise ValueError("Deposit amount cannot be negative")
+        if period < 0:
+            raise ValueError("Period cannot be negative")
+        if rate < 0:
+            raise ValueError("Rate cannot be negative")
         self.deposit_amount = deposit_amount  # starting deposit
         self.period = period  # period of the deposit in months
         self.rate = rate  # annual rate % divided by 100
