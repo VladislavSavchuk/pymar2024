@@ -33,6 +33,16 @@ class Customer:
     def __init__(self, name: str):
         """This method outputs the name of the bank's customer"""
         self.name = name
+        if not name:
+            raise ValueError("Name cannot be empty")
+        if not all(char.isalnum() or char.isspace() for char in name):
+            raise ValueError("Name can only contain alphanumeric characters"
+                             " and spaces")
+        if len(name) > 255:
+            raise ValueError("Name is too long")
+
+    def __str__(self):
+        return self.name
 
 
 person_1 = Customer('Lionel Messi')
