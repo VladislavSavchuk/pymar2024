@@ -66,26 +66,18 @@ class TestBankPositive:
 class TestBankBoundary:
     """Boundary tests for bank deposit"""
 
-    def test_bank_boundary_zero_amount(self):
-        """Boundary test for zero amount"""
-        bank = Bank(deposit_amount=0, period=12, rate=5)
+    @pytest.mark.parametrize("deposit, period, rate, expected", [
+        (0, 12, 5, 0.0),  # Test with zero deposit amount
+        (1000, 0, 5, 1000.0),  # Test with zero period
+        (1000, 12, 0, 1000.0)  # Test with zero rate
+    ])
+    def test_bank_boundary_zero_amount(self, deposit, period, rate, expected):
+        """Boundary test for zero amount, period and rate"""
+        bank = Bank(deposit_amount=deposit, period=period, rate=rate)
         result = bank.calculate_monthly_capitalization()
-        logger.info(f"TestBankBoundary: Calculated result: {result}")
-        assert result == 0
-
-    def test_bank_boundary_zero_period(self):
-        """Boundary test for zero period"""
-        bank = Bank(deposit_amount=1000, period=0, rate=5)
-        result = bank.calculate_monthly_capitalization()
-        logger.info(f"TestBankBoundary: Calculated result: {result}")
-        assert result == 1000
-
-    def test_bank_boundary_zero_rate(self):
-        """Boundary test for zero rate"""
-        bank = Bank(deposit_amount=1000, period=12, rate=0)
-        result = bank.calculate_monthly_capitalization()
-        logger.info(f"TestBankBoundary: Calculated result: {result}")
-        assert result == 1000
+        logger.info(f"Test result: deposit={deposit}, period={period}, "
+                    f"rate={rate} => result={result}")
+        assert result == expected, f"Expected {expected}, got {result}"
 
 
 @pytest.mark.invalid
