@@ -2,6 +2,12 @@
 This program calculates the monthly capitalization of the user's deposit.
 """
 
+import logging
+
+# Configure logging
+logging.basicConfig(level=logging.INFO,
+                    format='%(asctime)s | %(levelname)s | %(message)s')
+
 
 class Bank:
     """Initialize bank deposit attributes"""
@@ -32,7 +38,6 @@ class Customer:
     """Initialize customer's"""
     def __init__(self, name: str):
         """This method outputs the name of the bank's customer"""
-        self.name = name
         if not name:
             raise ValueError("Name cannot be empty")
         if not all(char.isalnum() or char.isspace() for char in name):
@@ -40,19 +45,24 @@ class Customer:
                              " and spaces")
         if len(name) > 255:
             raise ValueError("Name is too long")
+        self.name = name
 
     def __str__(self):
         return self.name
 
 
-person_1 = Customer('Lionel Messi')
-person_2 = Customer('LeBron James')
-# print(person_1.name)
-# deposit_person1 = Bank(1000000, 120, 10)
-# print(deposit_person1)
-# print(deposit_person1.calculate_monthly_capitalization())
-# print()
-# print(person_2.name)
-# deposit_person2 = Bank(999999.99, 60, 10)
-# print(deposit_person2)
-# print(deposit_person2.calculate_monthly_capitalization())
+if __name__ == "__main__":
+    person_1 = Customer('Lionel Messi')
+    person_2 = Customer('LeBron James')
+
+    logging.info(f'Customer created: {person_1.name}')
+    deposit_person1 = Bank(1000000, 120, 10)
+    logging.info(deposit_person1)
+    logging.info(f'Monthly capitalization: '
+                 f'{deposit_person1.calculate_monthly_capitalization()}')
+
+    logging.info(f'Customer created: {person_2.name}')
+    deposit_person2 = Bank(999999.99, 60, 10)
+    logging.info(deposit_person2)
+    logging.info(f'Monthly capitalization: '
+                 f'{deposit_person2.calculate_monthly_capitalization()}')
