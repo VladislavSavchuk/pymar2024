@@ -29,9 +29,14 @@ class TestBank(unittest.TestCase):
         logger.info("Testing Bank attributes")
 
         bank = Bank(1500, 24, 3.5)
-        self.assertEqual(bank.deposit_amount, 1500)
-        self.assertEqual(bank.period, 24)
-        self.assertEqual(bank.rate, 3.5)
+        assert bank.deposit_amount == 1500, \
+            f"Expected deposit_amount to be 1500, but got {bank.deposit_amount}"
+        assert bank.period == 24, \
+            f"Expected period to be 24, but got {bank.period}"
+        assert bank.rate == 3.5, \
+            f"Expected rate to be 3.5, but got {bank.rate}"
+
+        logger.info("Successfully verified initialization of bank attributes")
 
     def test_calculate_monthly_capitalization(self):
         """Test the calculation of monthly capitalization."""
