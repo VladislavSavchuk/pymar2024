@@ -47,7 +47,7 @@ class TestBooks(unittest.TestCase):
 
         result = self.user1.reserve_book(self.book)
         logger.info("User 1 reserves a book: %s" % result)
-        self.assertEqual(result, "reserved_success")
+        self.assertEqual(result, True)
         self.assertTrue(self.book.reserved)
         self.assertEqual(self.book.reserved_by, self.user1)
 
@@ -63,7 +63,7 @@ class TestBooks(unittest.TestCase):
 
         result = self.user1.take_book(self.book)
         logger.info("User 1 takes a book: %s" % result)
-        self.assertEqual(result, "taken_success")
+        self.assertEqual(result, True)
         self.assertTrue(self.book.busy)
         self.assertFalse(self.book.reserved)
         self.assertIsNone(self.book.reserved_by)
@@ -92,7 +92,7 @@ class TestBooks(unittest.TestCase):
         self.user1.reserve_book(self.book)
         result = self.user1.take_book(self.book)
         logger.info("User 1 reserves and takes a book: %s" % result)
-        self.assertEqual(result, "taken_success")
+        self.assertEqual(result, True)
         self.assertTrue(self.book.busy)
         self.assertFalse(self.book.reserved)
         self.assertIsNone(self.book.reserved_by)
@@ -139,7 +139,7 @@ class TestBooks(unittest.TestCase):
 
         result = self.user1.reserve_book(self.book)
         logger.info("First reservation by user 1: %s" % result)
-        self.assertEqual(result, "reserved_success")
+        self.assertEqual(result, True)
 
         result = self.user1.reserve_book(self.book)
         logger.info("Re-booking by user 1: %s" % result)
@@ -154,7 +154,7 @@ class TestBooks(unittest.TestCase):
         self.user1.reserve_book(self.book)
         result = self.user1.take_book(self.book)
         logger.info("User 1 takes a reserved book: %s" % result)
-        self.assertEqual(result, "taken_success")
+        self.assertEqual(result, True)
         self.assertTrue(self.book.busy)
         self.assertFalse(self.book.reserved)
         self.assertIsNone(self.book.reserved_by)

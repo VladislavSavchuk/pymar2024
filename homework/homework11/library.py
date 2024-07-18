@@ -27,7 +27,7 @@ class Books:
         if not self.busy and not self.reserved:
             self.reserved = True
             self.reserved_by = user
-            return "reserved_success"
+            return True
         if self.busy:
             return "busy"
         if self.reserved:
@@ -41,7 +41,7 @@ class Books:
             self.busy = True
             self.reserved = False
             self.reserved_by = None
-            return "taken_success"
+            return True
         if self.reserved and self.reserved_by != user:
             return "reserved_by_other"
         return "taken"
