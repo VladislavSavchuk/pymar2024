@@ -1,16 +1,14 @@
 """This program covers the "Bank Deposit" program with tests"""
 
-import datetime
 import pytest
-from loguru import logger
+from logger_config import configure_logger
 from homework.homework11.bank_deposit import Bank, Customer
 
+# Name of the module used for logging
+module_name = __name__
+
 # Configure logger
-current_time = datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-logger.add(f'logs/{current_time}_test_bank_deposit.log',
-           format="{time:YYYY-MM-DD HH:mm:ss} | {level} | "
-                  "{file}:{line} | {message}",
-           level='INFO')
+logger = configure_logger(module_name)
 
 
 @pytest.mark.positive
