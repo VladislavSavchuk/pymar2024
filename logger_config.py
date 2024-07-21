@@ -1,8 +1,8 @@
 """This module is used to configure the logger"""
 
-from loguru import logger
 import datetime
 import os
+from loguru import logger
 
 
 def configure_logger(module_name):
