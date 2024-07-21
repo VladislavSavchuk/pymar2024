@@ -1,6 +1,7 @@
 # Byte-compiled / optimized / DLL files
 # Ignore log files
 *.log
+*.html
 
 __pycache__/
 *.py[cod]
