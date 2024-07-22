@@ -1,11 +1,7 @@
 """This file contains the keywords for the library."""
 
-
-import logging
 from robot.api.deco import keyword
 from homework.homework11.bank_deposit import Bank, Customer
-
-logger = logging.getLogger(__name__)
 
 
 @keyword
@@ -24,9 +20,3 @@ def calculate_monthly_capitalization(bank):
 def create_customer_instance(name):
     """Create an instance of the Customer class."""
     return Customer(name)
-
-
-@keyword
-def log_message(message):
-    """Log a message."""
-    logger.info(message)

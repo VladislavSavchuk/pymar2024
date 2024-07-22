@@ -17,7 +17,7 @@ Positive Test Case: Calculate Monthly Capitalization
     ${deposit_amount}=    ${VALID_DEPOSIT_AMOUNT}
     ${period}=    ${VALID_PERIOD}
     ${rate}=    ${VALID_RATE}
-    ${bank}=    Create Bank Instance    ${deposit_amount}    ${period}    ${rate}
+    ${bank}=    Create Bank Instance   ${deposit_amount}    ${period}    ${rate}
     ${result}=    Calculate Monthly Capitalization    ${bank}
     Should Be Equal As Numbers    ${result}    1051.16
 
