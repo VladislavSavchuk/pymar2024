@@ -20,18 +20,18 @@ class Books:
                  f'author: {self.author}, '
                  f'isbn: {str(self.isbn)}, '
                  f'page_count: {str(self.page_count)}')
-        return f'Book Description: {descr}'
+        return descr
 
     def reservation(self, user):
         """This method allows the user to reserve a book if it is not busy"""
         if not self.busy and not self.reserved:
             self.reserved = True
             self.reserved_by = user
-            return "Book has been successfully reserved"
+            return True
         if self.busy:
-            return "The book is busy. You cannot reserve the book"
+            return "busy"
         if self.reserved:
-            return "The book is already reserved. You cannot reserve the book"
+            return "reserved"
         return None
 
     def receiving(self, user):
@@ -41,39 +41,36 @@ class Books:
             self.busy = True
             self.reserved = False
             self.reserved_by = None
-            return "The book is free. You can take the book"
+            return True
         if self.reserved and self.reserved_by != user:
-            return "The book is reserved by another user"
-        return "The book is already taken"
+            return "reserved_by_other"
+        return "taken"
 
     def returning(self):
         """This method allows the user to return the book"""
         if self.busy:
             self.busy = False
             if not self.reserved:
-                return "The book has been returned"
-            return "The book has been returned, but it is still reserved"
+                return "returned"
+            return "returned_reserved"
         if self.reserved:
             self.reserved = False
             self.reserved_by = None
-            return "The book reserve has been canceled"
-        return "The book was free"
+            return "reserve_cancelled"
+        return "free"
 
 
 class User:
     """Initialize user actions"""
-    @staticmethod
-    def take_book(book):
+    def take_book(self, book):
         """This method allows the user to take the book"""
-        return book.receiving(User)
+        return book.receiving(self)
 
-    @staticmethod
-    def reserve_book(book):
+    def reserve_book(self, book):
         """This method allows the user to reserve a book"""
-        return book.reservation(User)
+        return book.reservation(self)
 
-    @staticmethod
-    def return_book(book):
+    def return_book(self, book):
         """This method allows the user to return the book"""
         return book.returning()
 
