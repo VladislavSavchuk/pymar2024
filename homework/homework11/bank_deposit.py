@@ -61,6 +61,18 @@ if __name__ == "__main__":
     logging.info(f'Monthly capitalization: '
                  f'{deposit_person1.calculate_monthly_capitalization()}')
 
+
+if __name__ == "__main__":
+    person_1 = Customer('Lionel Messi')
+    person_2 = Customer('LeBron James')
+
+    logging.info(f'Customer created: {person_1.name}')
+    deposit_person1 = Bank(1000000, 120, 10)
+    logging.info(deposit_person1)
+    logging.info(f'Monthly capitalization: '
+                 f'{deposit_person1.calculate_monthly_capitalization()}')
+
+
     logging.info(f'Customer created: {person_2.name}')
     deposit_person2 = Bank(999999.99, 60, 10)
     logging.info(deposit_person2)
