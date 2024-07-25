@@ -2,6 +2,7 @@
 # Ignore log files
 *.log
 *.html
+*.xml
 
 __pycache__/
 *.py[cod]
