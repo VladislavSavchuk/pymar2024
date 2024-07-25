@@ -50,7 +50,7 @@ class Customer:
     def __str__(self):
         return self.name
 
-  
+
 if __name__ == "__main__":
     person_1 = Customer('Lionel Messi')
     person_2 = Customer('LeBron James')
