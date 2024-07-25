@@ -72,7 +72,6 @@ if __name__ == "__main__":
     logging.info(f'Monthly capitalization: '
                  f'{deposit_person1.calculate_monthly_capitalization()}')
 
-
     logging.info(f'Customer created: {person_2.name}')
     deposit_person2 = Bank(999999.99, 60, 10)
     logging.info(deposit_person2)
