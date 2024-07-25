@@ -8,7 +8,7 @@ from homework.homework11.library import Books, User
 module_name = __name__
 
 # Configure logger
-logger = configure_logger(module_name)
+logger = configure_logger(__name__)
 
 
 class TestLibrary:
