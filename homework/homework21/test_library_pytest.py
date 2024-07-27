@@ -4,9 +4,6 @@ import pytest
 from logger_config import configure_logger
 from homework.homework11.library import Books, User
 
-# Name of the module used for logging
-module_name = __name__
-
 # Configure logger
 logger = configure_logger(__name__)
 
