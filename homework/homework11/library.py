@@ -75,33 +75,34 @@ class User:
         return book.returning()
 
 
-book_1 = Books('The Lord of the Rings', 'J.R.R. Tolkien',
-               9785171358136, 1120)
-print(book_1)
+if __name__ == "__main__":
+    book_1 = Books('The Lord of the Rings', 'J.R.R. Tolkien',
+                   9785171358136, 1120)
+    print(book_1)
 
-vasya = User()
-petya = User()
+    vasya = User()
+    petya = User()
 
-print('1')
-print(vasya.take_book(book_1))
-print(petya.take_book(book_1))
+    print('1')
+    print(vasya.take_book(book_1))
+    print(petya.take_book(book_1))
 
-print('2')
-print(vasya.return_book(book_1))
-print(petya.take_book(book_1))
+    print('2')
+    print(vasya.return_book(book_1))
+    print(petya.take_book(book_1))
 
-print('3')
-print(vasya.take_book(book_1))
-print(petya.return_book(book_1))
+    print('3')
+    print(vasya.take_book(book_1))
+    print(petya.return_book(book_1))
 
-print('4')
-print(vasya.reserve_book(book_1))
-print(petya.reserve_book(book_1))
+    print('4')
+    print(vasya.reserve_book(book_1))
+    print(petya.reserve_book(book_1))
 
-print('5')
-print(vasya.take_book(book_1))
-print(petya.take_book(book_1))
+    print('5')
+    print(vasya.take_book(book_1))
+    print(petya.take_book(book_1))
 
-print('6')
-print(vasya.return_book(book_1))
-print(petya.return_book(book_1))
+    print('6')
+    print(vasya.return_book(book_1))
+    print(petya.return_book(book_1))

@@ -12,6 +12,12 @@ logging.basicConfig(level=logging.INFO,
 class Bank:
     """Initialize bank deposit attributes"""
     def __init__(self, deposit_amount: float, period: int, rate: float):
+        if deposit_amount < 0:
+            raise ValueError("Deposit amount cannot be negative")
+        if period < 0:
+            raise ValueError("Period cannot be negative")
+        if rate < 0:
+            raise ValueError("Rate cannot be negative")
         self.deposit_amount = deposit_amount  # starting deposit
         self.period = period  # period of the deposit in months
         self.rate = rate  # annual rate % divided by 100
@@ -32,7 +38,17 @@ class Customer:
     """Initialize customer's"""
     def __init__(self, name: str):
         """This method outputs the name of the bank's customer"""
+        if not name:
+            raise ValueError("Name cannot be empty")
+        if not all(char.isalnum() or char.isspace() for char in name):
+            raise ValueError("Name can only contain alphanumeric characters"
+                             " and spaces")
+        if len(name) > 255:
+            raise ValueError("Name is too long")
         self.name = name
+
+    def __str__(self):
+        return self.name
 
 
 if __name__ == "__main__":

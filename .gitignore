@@ -1,10 +1,17 @@
 # Byte-compiled / optimized / DLL files
 # Ignore log files
 *.log
+*.html
+*.xml
 
 __pycache__/
 *.py[cod]
 *$py.class
+
+# pytest
+.test_log.log
+htmlcov/
+.cache/
 
 # Environments
 venv*/
