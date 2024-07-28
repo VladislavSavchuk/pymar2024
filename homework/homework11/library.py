@@ -61,18 +61,37 @@ class Books:
 
 
 class User:
-    """Initialize user actions"""
-    def take_book(self, book):
-        """This method allows the user to take the book"""
-        return book.receiving(self)
+    def __init__(self, name):
+        self.name = name
 
     def reserve_book(self, book):
-        """This method allows the user to reserve a book"""
-        return book.reservation(self)
+        """Reserve a book if it is not reserved by another user"""
+        if not book.reserved:
+            book.reserved = True
+            book.reserved_by = self.name
+            return "reserved"
+        return "already_reserved"
+
+    def take_book(self, book):
+        """Take a book if it is not reserved or busy by another user"""
+        if not book.busy and \
+                (not book.reserved or book.reserved_by == self.name):
+            book.busy = True
+            book.reserved_by = self.name
+            return "taken"
+        return "busy_or_reserved_by_other"
 
     def return_book(self, book):
-        """This method allows the user to return the book"""
-        return book.returning()
+        """Return a book if it is busy and reserved by the user"""
+        if book.busy and book.reserved_by == self.name:
+            book.busy = False
+            book.reserved_by = None
+            book.reserved = False
+            return "returned"
+        return "not_taken_by_user"
+
+    def __repr__(self):
+        return f"User(name={self.name})"
 
 
 if __name__ == "__main__":
@@ -80,29 +99,29 @@ if __name__ == "__main__":
                    9785171358136, 1120)
     print(book_1)
 
-    vasya = User()
-    petya = User()
+    user_vasya = User(name="Vasya")
+    user_petya = User(name="Petya")
 
     print('1')
-    print(vasya.take_book(book_1))
-    print(petya.take_book(book_1))
+    print(user_vasya.take_book(book_1))
+    print(user_petya.take_book(book_1))
 
     print('2')
-    print(vasya.return_book(book_1))
-    print(petya.take_book(book_1))
+    print(user_vasya.return_book(book_1))
+    print(user_petya.take_book(book_1))
 
     print('3')
-    print(vasya.take_book(book_1))
-    print(petya.return_book(book_1))
+    print(user_vasya.take_book(book_1))
+    print(user_petya.return_book(book_1))
 
     print('4')
-    print(vasya.reserve_book(book_1))
-    print(petya.reserve_book(book_1))
+    print(user_vasya.reserve_book(book_1))
+    print(user_petya.reserve_book(book_1))
 
     print('5')
-    print(vasya.take_book(book_1))
-    print(petya.take_book(book_1))
+    print(user_vasya.take_book(book_1))
+    print(user_petya.take_book(book_1))
 
     print('6')
-    print(vasya.return_book(book_1))
-    print(petya.return_book(book_1))
+    print(user_vasya.return_book(book_1))
+    print(user_petya.return_book(book_1))
