@@ -27,14 +27,14 @@ class TestLibrary:
                      1120)
 
     @pytest.fixture
-    def user1(self):
+    def user_vasya(self):
         """Fixture for creating the first user"""
-        return User()
+        return User(name="Vasya")
 
     @pytest.fixture
-    def user2(self):
+    def user_petya(self):
         """Fixture for creating a second user"""
-        return User()
+        return User(name="Petya")
 
     def test_book_attributes_positive(self, book):
         """Testing Positive Scenarios for Verifying Book Attributes"""
@@ -54,78 +54,80 @@ class TestLibrary:
         assert book.author != 'George R.R. Martin'
         assert book.isbn != 1234567890123
         assert book.page_count != 0
-        assert book.reserved is False
-        assert book.busy is False
-        assert book.reserved_by != ""
-
-    def test_book_reserved_attribute(self, book, user1):
-        """Testing changing the reserved attribute of a book when booking"""
-        logger.info("Testing book reserved attribute...")
-        user1.reserve_book(book)
-        assert book.reserved
-        assert book.reserved_by == user1
-
-    def test_book_reserved_by_attribute(self, book, user1):
-        """Тестирование изменения атрибута reserved_by книги при возврате"""
-        logger.info("Testing book reserved_by attribute...")
-        user1.take_book(book)
-        user1.return_book(book)
+        assert not book.reserved
+        assert not book.busy
         assert book.reserved_by is None
 
-    def test_book_busy_attribute(self, book, user1):
+    def test_book_reserved_attribute(self, book, user_vasya):
+        """Testing changing the reserved attribute of a book when booking"""
+        logger.info("Testing book reserved attribute...")
+        user_vasya.reserve_book(book)
+        assert book.reserved
+        assert book.reserved_by == user_vasya.name
+
+    def test_book_reserved_by_attribute(self, book, user_vasya):
+        """Тестирование изменения атрибута reserved_by книги при возврате"""
+        logger.info("Testing book reserved_by attribute...")
+        user_vasya.take_book(book)
+        user_vasya.return_book(book)
+        assert book.reserved_by is None
+
+    def test_book_busy_attribute(self, book, user_vasya):
         """Testing changing the book's busy attribute upon receipt"""
         logger.info("Testing book busy attribute...")
-        user1.take_book(book)
+        user_vasya.take_book(book)
         assert book.busy
 
-    def test_attributes_is_none(self, book, user1, user2):
+    def test_attributes_is_none(self, book, user_vasya, user_petya):
         """Testing detection of None objects"""
         logger.info("Testing return of a reserved book...")
         try:
-            if book is None or user1 is None or user2 is None:
+            if book is None or user_vasya is None or user_petya is None:
                 raise ValueError("One of the objects is None")
         except Exception as e:
             logger.error(f"Test failed: {str(e)}")
             raise
 
-    def test_book_return_clears_attributes(self, book, user1):
+    def test_book_return_clears_attributes(self, book, user_vasya):
         """Testing book attributes reset when returned"""
         logger.info("Testing book attributes reset on return...")
-        user1.take_book(book)
-        user1.return_book(book)
+        user_vasya.take_book(book)
+        user_vasya.return_book(book)
         assert not book.busy
         assert not book.reserved
         assert book.reserved_by is None
 
-    def test_book_receiving(self, book, user1, user2):
+    def test_book_receiving(self, book, user_vasya, user_petya):
         """Testing the book retrieval function"""
         logger.info("Testing book receiving...")
-        assert user1.take_book(book)
-        assert user2.take_book(book) == "taken"
+        user_vasya.take_book(book)
+        assert user_petya.take_book(book) == "busy_or_reserved_by_other"
 
-    def test_book_reservation(self, book, user1, user2):
+    def test_book_reservation(self, book, user_vasya, user_petya):
         """Testing the book reservation function"""
         logger.info("Testing book reservation...")
-        assert user1.reserve_book(book)
-        assert user2.reserve_book(book) == "reserved"
+        assert user_vasya.reserve_book(book) == "reserved"
+        assert user_petya.reserve_book(book) == "already_reserved"
 
-    def test_book_returning(self, book, user1, user2):
+    def test_book_returning(self, book, user_vasya, user_petya):
         """Testing the book return function"""
         logger.info("Testing book returning...")
-        user1.take_book(book)
-        assert user1.return_book(book) == "returned"
-        assert user2.take_book(book)
+        user_vasya.take_book(book)
+        assert user_vasya.return_book(book) == "returned"
+        assert user_petya.take_book(book) == "taken"
+        assert book.busy
+        assert book.reserved_by == user_petya.name
 
-    def test_reserved_book_receiving(self, book, user1, user2):
+    def test_reserved_book_receiving(self, book, user_vasya, user_petya):
         """Testing the function of obtaining a reserved book"""
         logger.info("Testing reserved book receiving...")
-        user1.reserve_book(book)
-        assert user2.take_book(book) == "reserved_by_other"
-        assert user1.take_book(book)
+        user_vasya.reserve_book(book)
+        assert user_petya.take_book(book) == "busy_or_reserved_by_other"
+        assert user_vasya.take_book(book) == "taken"
 
-    def test_reserved_book_returning(self, book, user1, user2):
+    def test_reserved_book_returning(self, book, user_vasya, user_petya):
         """Testing the reserved book return function"""
         logger.info("Testing reserved book returning...")
-        user1.reserve_book(book)
-        assert user1.return_book(book) == "reserve_cancelled"
-        assert user2.take_book(book)
+        user_vasya.reserve_book(book)
+        assert user_vasya.return_book(book) == "not_taken_by_user"
+        assert user_petya.take_book(book) == "busy_or_reserved_by_other"
