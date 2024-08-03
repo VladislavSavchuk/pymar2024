@@ -1,11 +1,11 @@
 """This program covers the "Library" program with tests"""
 
+import logging
 import pytest
-from logger_config import configure_logger
 from homework.homework11.library import Books, User
 
 # Configure logger
-logger = configure_logger(__name__)
+logger = logging.getLogger(__name__)
 
 
 class TestLibrary:
