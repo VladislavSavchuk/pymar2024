@@ -1,14 +1,11 @@
 """This program covers the "Bank Deposit" program with tests"""
 
+import logging
 import pytest
-from logger_config import configure_logger
 from homework.homework11.bank_deposit import Bank, Customer
 
-# Name of the module used for logging
-module_name = __name__
-
 # Configure logger
-logger = configure_logger(module_name)
+logger = logging.getLogger(__name__)
 
 
 @pytest.mark.positive
