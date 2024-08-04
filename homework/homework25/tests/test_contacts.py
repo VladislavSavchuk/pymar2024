@@ -1,53 +1,52 @@
-"""
-This module contains the tests for the contacts web page
-"""
+"""This module contains the tests for the contacts web page"""
 
+import logging
 import pytest
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common import TimeoutException
-import logging
 from homework.homework25.pages.login_page import LoginPage
 from homework.homework25.pages.add_contact_page import AddContactPage
-from homework.homework25.pages.edit_contact_page import EditContactPage
+from homework.homework25.pages.edit_contact_page import (
+    EditContactPage, DeleteContactPage)
 from homework.homework25.resources.constants import EMAIL, PASSWORD
-from homework.homework25.conftest import driver
 
 loger = logging.getLogger(__name__)
 
 
 @pytest.fixture(autouse=True)
-def complete_login(driver):
+def login(driver):
     """
-    Logs in to the web page.
+    Fixture that performs login before each test.
 
     Parameters:
-        open_browser (selenium.webdriver.Chrome):
-        The browser fixture to open the login page.
-        :param driver:
+        driver (selenium.webdriver.Chrome):
+        The WebDriver instance used for browser interactions.
+
+    This fixture initializes the LoginPage and performs a login operation
+    using predefined EMAIL and PASSWORD constants.
     """
-    browser = driver
-    login_page = LoginPage(browser)
-    login_page.enter_email(EMAIL)
-    login_page.enter_password(PASSWORD)
-    login_page.submit_login()
-    login_page.wait_for_login()
+    login_page = LoginPage(driver)
+    login_page.complete_login(EMAIL, PASSWORD)
 
 
+@pytest.mark.smoke
 def test_add_contact(driver):
     """
-    Adds a new contact to the contact list.
+    Test for adding a new contact to the contact list.
 
     Parameters:
-        open_browser (selenium.webdriver.Chrome):
-        The browser fixture to open the login page.
+        driver (selenium.webdriver.Chrome):
+        The WebDriver instance used for browser interactions.
+
+    This test navigates to the add contact page,
+    adds a new contact using predefined
+    contact data, and verifies that the contact
+    has been added successfully.
     """
     loger.info("Start test Add a new contact")
-    browser = driver
-    add_contact_page = AddContactPage(browser)
-    add_contact_page.click_add_contact()
 
+    add_contact_page = AddContactPage(driver)
     contact_data = {
         'first_name': 'Gottfried',
         'last_name': 'Leibniz',
@@ -61,84 +60,68 @@ def test_add_contact(driver):
         'postal_code': '80636',
         'country': 'Germany',
     }
-    add_contact_page.fill_contact_form(contact_data)
-    add_contact_page.submit_form()
 
-    contact_row = WebDriverWait(browser, 10).until(
-        EC.presence_of_element_located(
-            (By.XPATH, EditContactPage.contact_row))
-    )
-
+    add_contact_page.add_contact(contact_data)
+    contact_row = driver.find_element(By.XPATH, EditContactPage.contact_row)
     assert contact_row is not None
+
     loger.info("Add a new contact - PASSED")
 
 
+@pytest.mark.smoke
 def test_edit_contact(driver):
     """
-    Edits details of a contact on a web page.
+    Test for editing an existing contact.
 
     Parameters:
-        open_browser (selenium.webdriver.Chrome):
-        The browser fixture to open the login page.
+        driver (selenium.webdriver.Chrome):
+        The WebDriver instance used for browser interactions.
+
+    This test navigates to the edit contact page,
+    updates the contact information
+    with predefined updated data, and verifies that the contact
+    has been updated successfully.
     """
     loger.info("Start test Edit a contact")
-    browser = driver
-    edit_contact_page = EditContactPage(browser)
-    edit_contact_page.click_contact_row()
-    edit_contact_page.click_edit_contact()
 
+    edit_contact_page = EditContactPage(driver)
     updated_data = {
         'email': 'newtestmail@beispiel.de',
         'city': 'Dortmund',
         'postal_code': '44123',
     }
-    edit_contact_page.fill_edit_form(updated_data)
-    edit_contact_page.submit_form()
 
-    email = (browser.find_element
-             (By.CSS_SELECTOR, '[id="email"]').text)
-    city = (browser.find_element
-            (By.CSS_SELECTOR, '[id="city"]').text)
-    postal_code = (browser.find_element
-                   (By.CSS_SELECTOR, '[id="postalCode"]').text)
-    assert email == 'newtestmail@beispiel.de'
-    assert city == 'Dortmund'
-    assert postal_code == '44123'
+    edit_contact_page.edit_contact(updated_data)
+    edit_contact_page.verify_contact_updated(
+        'newtestmail@beispiel.de', 'Dortmund', '44123')
 
     loger.info("Edit a contact - PASSED")
 
 
+@pytest.mark.smoke
 def test_delete_contact(driver):
     """
-    Deletes a contact on a web page.
+    Test for deleting an existing contact.
 
     Parameters:
-        open_browser (selenium.webdriver.Chrome):
-        The browser fixture to open the login page.
+        driver (selenium.webdriver.Chrome):
+        The WebDriver instance used for browser interactions.
+
+    This test navigates to the delete contact page,
+    deletes an existing contact,
+    and verifies that the contact has been removed from the contact list.
     """
     loger.info("Start test Delete a contact")
-    browser = driver
-    edit_contact_page = EditContactPage(browser)
 
-    contact_row = WebDriverWait(browser, 10).until(
-        EC.presence_of_element_located(
-            (By.XPATH, EditContactPage.contact_row))
-    )
-    contact_name = contact_row.text
-
-    edit_contact_page.click_contact_row()
-    edit_contact_page.click_delete_contact()
-    edit_contact_page.accept_alert()
+    delete_contact_page = DeleteContactPage(driver)
+    contact_name = delete_contact_page.delete_contact()
 
     contact_deleted = True
     try:
-        WebDriverWait(browser, 10).until(
+        delete_contact_page.wait.until(
             EC.presence_of_element_located(
-                (By.XPATH, f"//*[contains(text(), '{contact_name}')]"))
-        )
+                (By.XPATH, f"//*[contains(text(), '{contact_name}')]")))
         contact_deleted = False
-        loger.error("Contact '%s' was not deleted successfully.",
-                    contact_name)
     except TimeoutException:
         pass
 
