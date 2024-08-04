@@ -1,7 +1,6 @@
 """This module tests the creation, updating and deletion of a contact"""
 
 
-import time
 import pytest
 from selenium import webdriver
 from selenium.common import TimeoutException
@@ -14,11 +13,7 @@ from homework.homework24.page_locators.add_contact_page \
     import AddContactLocators
 from homework.homework24.page_locators.update_contact_details_page \
     import EditContactLocators
-
-
-URL = 'https://thinking-tester-contact-list.herokuapp.com/'
-EMAIL = 'xesed@mailto.plus'
-PASSWORD = 'qwerty1'
+from homework.homework24.test_data.constants import URL, EMAIL, PASSWORD
 
 
 @pytest.fixture()
@@ -42,19 +37,18 @@ def login(open_browser):
         open_browser (selenium.webdriver.Chrome):
         The browser fixture to open the login page.
     """
-    browser = open_browser
-    wait = WebDriverWait(browser, 10)
+    wait = WebDriverWait(open_browser, 10)
 
     email_field = wait.until(EC.presence_of_element_located(
-        (By.CSS_SELECTOR, LoginPageLocators.input_email)))
+        LoginPageLocators.input_email))
     email_field.send_keys(EMAIL)
 
-    password_field = browser.find_element(
-        By.CSS_SELECTOR, LoginPageLocators.input_password)
+    password_field = wait.until(EC.presence_of_element_located(
+        LoginPageLocators.input_password))
     password_field.send_keys(PASSWORD)
 
-    button_submit = browser.find_element(
-        By.CSS_SELECTOR, LoginPageLocators.submit_btn)
+    button_submit = wait.until(EC.element_to_be_clickable(
+        LoginPageLocators.submit_btn))
     button_submit.click()
 
     wait.until(EC.presence_of_element_located(
@@ -69,11 +63,10 @@ def test_add_contact(open_browser):
         open_browser (selenium.webdriver.Chrome):
         The browser fixture to open the login page.
     """
-    browser = open_browser
-    wait = WebDriverWait(browser, 10)
+    wait = WebDriverWait(open_browser, 10)
 
     button_add_contact = wait.until(EC.element_to_be_clickable(
-        (By.CSS_SELECTOR, AddContactLocators.add_contact_btn)))
+        AddContactLocators.add_contact_btn))
     button_add_contact.click()
 
     # Prepare data for a new contact
@@ -93,16 +86,15 @@ def test_add_contact(open_browser):
 
     # Fill in the form fields and wait until each field is available
     for locator, value in contact_data.items():
-        input_field = wait.until(EC.presence_of_element_located(
-            (By.CSS_SELECTOR, locator)))
+        input_field = wait.until(EC.presence_of_element_located(locator))
         input_field.send_keys(value)
 
     submit_button = wait.until(EC.element_to_be_clickable(
-        (By.CSS_SELECTOR, AddContactLocators.submit_btn)))
+        AddContactLocators.submit_btn))
     submit_button.click()
 
     contact_row = wait.until(EC.presence_of_element_located(
-        (By.XPATH, EditContactLocators.contact_row)))
+        EditContactLocators.contact_row))
 
     # Verify that the contact was added
     assert contact_row is not None
@@ -116,17 +108,21 @@ def test_edit_contact(open_browser):
         open_browser (selenium.webdriver.Chrome):
         The browser fixture to open the login page.
     """
-    browser = open_browser
-    wait = WebDriverWait(browser, 10)
+    wait = WebDriverWait(open_browser, 10)
 
     contact_row = wait.until(EC.element_to_be_clickable(
-        (By.XPATH, EditContactLocators.contact_row)))
+        EditContactLocators.contact_row))
     contact_row.click()
 
     button_edit = wait.until(EC.element_to_be_clickable(
-        (By.CSS_SELECTOR, EditContactLocators.edit_contact_btn)))
+        EditContactLocators.edit_contact_btn))
     button_edit.click()
-    time.sleep(1)
+
+    # Wait until form is populated (JavaScript condition is true)
+    wait.until(
+        lambda driver: driver.execute_script(
+            "return document.querySelector('#firstName').value !== '';")
+    )
 
     # Prepare updated data for a contact
     updated_data = {
@@ -137,26 +133,27 @@ def test_edit_contact(open_browser):
 
     # Fill in the form fields and wait until each field is available
     for locator, value in updated_data.items():
-        input_field = wait.until(EC.element_to_be_clickable(
-            (By.CSS_SELECTOR, locator)))
+        input_field = wait.until(EC.element_to_be_clickable(locator))
         input_field.clear()
         input_field.send_keys(value)
 
     submit_button = wait.until(EC.element_to_be_clickable(
-        (By.CSS_SELECTOR, EditContactLocators.submit_btn)))
+        EditContactLocators.submit_btn))
     submit_button.click()
-    time.sleep(1)
+
+    # Wait until form is populated (JavaScript condition is true)
+    wait.until(
+        lambda driver: driver.execute_script(
+            "return document.querySelector('#firstName').innerHTML !== '';")
+    )
 
     # Verify that the contact was edited
-    email = browser.find_element(
-        By.CSS_SELECTOR, '[id="email"]').text
-    city = browser.find_element(
-        By.CSS_SELECTOR, '[id="city"]').text
-    postal_code = browser.find_element(
-        By.CSS_SELECTOR, '[id="postalCode"]').text
-    assert email == 'newtestmail@beispiel.de'
-    assert city == 'Dortmund'
-    assert postal_code == '44123'
+    assert (updated_data[EditContactLocators.email_form] ==
+            'newtestmail@beispiel.de')
+    assert (updated_data[EditContactLocators.city_form] ==
+            'Dortmund')
+    assert (updated_data[EditContactLocators.postal_code_form] ==
+            '44123')
 
 
 def test_delete_contact(open_browser):
@@ -167,17 +164,16 @@ def test_delete_contact(open_browser):
         open_browser (selenium.webdriver.Chrome):
         The browser fixture to open the login page.
     """
-    browser = open_browser
-    wait = WebDriverWait(browser, 10)
+    wait = WebDriverWait(open_browser, 10)
 
     contact_row = wait.until(EC.presence_of_element_located(
-        (By.XPATH, EditContactLocators.contact_row)))
+        EditContactLocators.contact_row))
     # Save the name of the contact before deleting it
     contact_name = contact_row.text
     contact_row.click()
 
     button_delete = wait.until(EC.element_to_be_clickable(
-        (By.CSS_SELECTOR, EditContactLocators.delete_contact_btn)))
+        EditContactLocators.delete_contact_btn))
     button_delete.click()
 
     alert = wait.until(EC.alert_is_present())
@@ -186,7 +182,7 @@ def test_delete_contact(open_browser):
     contact_deleted = True
     try:
         wait.until(EC.presence_of_element_located(
-            (By.XPATH, f"//*[contains(text(), '{contact_name}')]")))
+            EditContactLocators.contact_deleted))
         contact_deleted = False
     except TimeoutException:
         pass
