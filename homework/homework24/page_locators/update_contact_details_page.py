@@ -5,6 +5,7 @@ class EditContactLocators:
     """ The class contains locators to edit a contact """
     # contact row
     contact_row = '//*[@class="contactTable"]/tr[1]'
+    contact_deleted = "//*[contains(text(), '{contact_name}')]"
     # buttons
     edit_contact_btn = '[id="edit-contact"]'
     delete_contact_btn = '[id="delete"]'
