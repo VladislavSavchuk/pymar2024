@@ -1,26 +1,28 @@
 """ Module for locator storage """
 
+from selenium.webdriver.common.by import By
+
 
 class EditContactLocators:
     """ The class contains locators to edit a contact """
     # contact row
-    contact_row = '//*[@class="contactTable"]/tr[1]'
-    contact_deleted = "//*[contains(text(), '{contact_name}')]"
+    contact_row = (By.XPATH, '//*[@class="contactTable"]/tr[1]')
+    contact_deleted = (By.XPATH, "//*[contains(text(), '{contact_name}')]")
     # buttons
-    edit_contact_btn = '[id="edit-contact"]'
-    delete_contact_btn = '[id="delete"]'
-    return_to_contacts_btn = '[id="return"]'
-    submit_btn = '[id="submit"]'
-    cancel_btn = '[id="cancel"]'
+    edit_contact_btn = (By.CSS_SELECTOR, "#edit-contact")
+    delete_contact_btn = (By.CSS_SELECTOR, "#delete")
+    return_to_contacts_btn = (By.CSS_SELECTOR, "#return")
+    submit_btn = (By.CSS_SELECTOR, "#submit")
+    cancel_btn = (By.CSS_SELECTOR, "#cancel")
     # forms
-    first_name_form = '[id="firstName"]'
-    last_name_form = '[id="lastName"]'
-    birthdate_form = '[id="birthdate"]'
-    email_form = '[id="email"]'
-    phone_form = '[id="phone"]'
-    street1_form = '[id="street1"]'
-    street2_form = '[id="street2"]'
-    city_form = '[id="city"]'
-    state_form = '[id="stateProvince""]'
-    postal_code_form = '[id="postalCode"]'
-    country_form = '[id="country"]'
+    first_name_form = (By.CSS_SELECTOR, "#firstName")
+    last_name_form = (By.CSS_SELECTOR, "#lastName")
+    birthdate_form = (By.CSS_SELECTOR, "#birthdate")
+    email_form = (By.CSS_SELECTOR, "#email")
+    phone_form = (By.CSS_SELECTOR, "#phone")
+    street1_form = (By.CSS_SELECTOR, "#street1")
+    street2_form = (By.CSS_SELECTOR, "#street2")
+    city_form = (By.CSS_SELECTOR, "#city")
+    state_form = (By.CSS_SELECTOR, "#stateProvince")
+    postal_code_form = (By.CSS_SELECTOR, "#postalCode")
+    country_form = (By.CSS_SELECTOR, "#country")
