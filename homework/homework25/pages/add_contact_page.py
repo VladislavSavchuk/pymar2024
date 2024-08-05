@@ -1,5 +1,4 @@
 """This module contains the class for the add contact page"""
-import time
 
 from selenium.webdriver.support import expected_conditions as EC
 from homework.homework25.page_locators.add_contact_page import (

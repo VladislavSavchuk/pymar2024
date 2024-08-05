@@ -43,7 +43,8 @@ class EditContactPage(BasePage):
         # Wait until form is populated (JavaScript condition is true)
         self.wait.until(
             lambda driver: driver.execute_script(
-                "return document.querySelector('#firstName').value !== '';")
+                "return document.querySelector('#firstName')."
+                "value !== '';")
         )
 
         for field, value in updated_data.items():
@@ -55,7 +56,8 @@ class EditContactPage(BasePage):
         # Wait until form is populated (JavaScript condition is true)
         self.wait.until(
             lambda driver: driver.execute_script(
-                "return document.querySelector('#firstName').innerHTML !== '';")
+                "return document.querySelector('#firstName')."
+                "innerHTML !== '';")
         )
 
     def verify_contact_updated(self, email, city, postal_code):
