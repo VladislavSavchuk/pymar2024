@@ -1,21 +1,23 @@
 """Module for locator storage"""
 
+from selenium.webdriver.common.by import By
+
 
 class AddContactLocators:
     """The class contains locators to add a contact"""
     # buttons
-    add_contact_btn = '[id="add-contact"]'
-    submit_btn = '[id="submit"]'
-    cancel_btn = '[id="cancel"]'
+    add_contact_btn = (By.CSS_SELECTOR, "#add-contact")
+    submit_btn = (By.CSS_SELECTOR, "#submit")
+    cancel_btn = (By.CSS_SELECTOR, "#cancel")
     # forms
-    first_name_input = '[id="firstName"]'
-    last_name_input = '[id="lastName"]'
-    birthdate_input = '[id="birthdate"]'
-    email_input = '[id="email"]'
-    phone_input = '[id="phone"]'
-    street1_input = '[id="street1"]'
-    street2_input = '[id="street2"]'
-    city_input = '[id="city"]'
-    state_input = '[id="stateProvince"]'
-    postal_code_input = '[id="postalCode"]'
-    country_input = '[id="country"]'
+    first_name_input = (By.CSS_SELECTOR, "#firstName")
+    last_name_input = (By.CSS_SELECTOR, "#lastName")
+    birthdate_input = (By.CSS_SELECTOR, "#birthdate")
+    email_input = (By.CSS_SELECTOR, "#email")
+    phone_input = (By.CSS_SELECTOR, "#phone")
+    street1_input = (By.CSS_SELECTOR, "#street1")
+    street2_input = (By.CSS_SELECTOR, "#street2")
+    city_input = (By.CSS_SELECTOR, "#city")
+    state_input = (By.CSS_SELECTOR, "#stateProvince")
+    postal_code_input = (By.CSS_SELECTOR, "#postalCode")
+    country_input = (By.CSS_SELECTOR, "#country")
