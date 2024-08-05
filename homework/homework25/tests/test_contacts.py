@@ -2,7 +2,6 @@
 
 import logging
 import pytest
-from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common import TimeoutException
 from homework.homework25.pages.login_page import LoginPage
@@ -30,7 +29,7 @@ def login(driver):
     login_page.complete_login(EMAIL, PASSWORD)
 
 
-@pytest.mark.smoke
+@pytest.mark.contacts_page
 def test_add_contact(driver):
     """
     Test for adding a new contact to the contact list.
@@ -62,13 +61,13 @@ def test_add_contact(driver):
     }
 
     add_contact_page.add_contact(contact_data)
-    contact_row = driver.find_element(By.XPATH, EditContactPage.contact_row)
+    contact_row = driver.find_element(*EditContactPage.contact_row)
     assert contact_row is not None
 
     loger.info("Add a new contact - PASSED")
 
 
-@pytest.mark.smoke
+@pytest.mark.contacts_page
 def test_edit_contact(driver):
     """
     Test for editing an existing contact.
@@ -98,7 +97,7 @@ def test_edit_contact(driver):
     loger.info("Edit a contact - PASSED")
 
 
-@pytest.mark.smoke
+@pytest.mark.contacts_page
 def test_delete_contact(driver):
     """
     Test for deleting an existing contact.
@@ -119,8 +118,7 @@ def test_delete_contact(driver):
     contact_deleted = True
     try:
         delete_contact_page.wait.until(
-            EC.presence_of_element_located(
-                (By.XPATH, f"//*[contains(text(), '{contact_name}')]")))
+            EC.presence_of_element_located(EditContactPage.contact_deleted))
         contact_deleted = False
     except TimeoutException:
         pass
