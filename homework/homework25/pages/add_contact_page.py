@@ -1,6 +1,6 @@
 """This module contains the class for the add contact page"""
+import time
 
-from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from homework.homework25.page_locators.add_contact_page import (
     AddContactLocators)
@@ -44,16 +44,13 @@ class AddContactPage(BasePage):
             TimeoutException: If the contact is not added
             within the timeout period.
         """
-        self.click_element(
-            (By.CSS_SELECTOR, AddContactLocators.add_contact_btn))
+        self.click_element(AddContactLocators.add_contact_btn)
 
         for field, value in contact_data.items():
-            locator = (By.CSS_SELECTOR,
-                       getattr(AddContactLocators, f'{field}_input'))
+            locator = getattr(AddContactLocators, f'{field}_input')
             self.enter_text(locator, value)
 
-        self.click_element(
-            (By.CSS_SELECTOR, AddContactLocators.submit_btn))
+        self.click_element(AddContactLocators.submit_btn)
 
         self.wait.until(EC.presence_of_element_located(
-            (By.XPATH, EditContactLocators.contact_row)))
+            EditContactLocators.contact_row))

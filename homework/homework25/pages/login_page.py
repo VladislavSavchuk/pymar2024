@@ -15,6 +15,7 @@ class LoginPage(BasePage):
     input_email = LoginPageLocators.input_email
     input_password = LoginPageLocators.input_password
     submit_btn = LoginPageLocators.submit_btn
+    contact_header = LoginPageLocators.contacts_header
 
     def complete_login(self, email, password):
         """
@@ -29,13 +30,10 @@ class LoginPage(BasePage):
             TimeoutException: If the login process does not complete
             within the timeout period.
         """
-        self.enter_text(
-            (By.CSS_SELECTOR, LoginPageLocators.input_email), email)
-        self.enter_text(
-            (By.CSS_SELECTOR, LoginPageLocators.input_password), password)
+        self.enter_text(LoginPageLocators.input_email, email)
+        self.enter_text(LoginPageLocators.input_password, password)
 
-        self.click_element(
-            (By.CSS_SELECTOR, LoginPageLocators.submit_btn))
+        self.click_element(LoginPageLocators.submit_btn)
 
         self.wait.until(EC.presence_of_element_located(
-            (By.XPATH, '//*[contains(text(), "Contact List")]')))
+            LoginPageLocators.contacts_header))

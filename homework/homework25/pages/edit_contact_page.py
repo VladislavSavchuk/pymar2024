@@ -1,7 +1,5 @@
 """This module contains the class for the edit contact page"""
 
-import time
-from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from homework.homework25.page_locators.update_contact_page import (
     EditContactLocators)
@@ -13,6 +11,7 @@ class EditContactPage(BasePage):
     Class representing the edit contact page of the application.
     Inherits from BasePage to provide common page functionalities.
     """
+    contact_deleted = EditContactLocators.contact_deleted
     contact_row = EditContactLocators.contact_row
     edit_contact_btn = EditContactLocators.edit_contact_btn
     delete_contact_btn = EditContactLocators.delete_contact_btn
@@ -38,20 +37,26 @@ class EditContactPage(BasePage):
             TimeoutException: If elements are not interactable or
             the contact is not updated within the timeout period.
         """
-        self.click_element(
-            (By.XPATH, EditContactLocators.contact_row))
-        self.click_element(
-            (By.CSS_SELECTOR, EditContactLocators.edit_contact_btn))
-        time.sleep(1)
+        self.click_element(EditContactLocators.contact_row)
+        self.click_element(EditContactLocators.edit_contact_btn)
+
+        # Wait until form is populated (JavaScript condition is true)
+        self.wait.until(
+            lambda driver: driver.execute_script(
+                "return document.querySelector('#firstName').value !== '';")
+        )
 
         for field, value in updated_data.items():
-            locator = (By.CSS_SELECTOR,
-                       getattr(EditContactLocators, f'{field}_form'))
+            locator = getattr(EditContactLocators, f'{field}_form')
             self.enter_text(locator, value)
 
-        self.click_element(
-            (By.CSS_SELECTOR, EditContactLocators.submit_btn))
-        time.sleep(1)
+        self.click_element(EditContactLocators.submit_btn)
+
+        # Wait until form is populated (JavaScript condition is true)
+        self.wait.until(
+            lambda driver: driver.execute_script(
+                "return document.querySelector('#firstName').innerHTML !== '';")
+        )
 
     def verify_contact_updated(self, email, city, postal_code):
         """
@@ -69,11 +74,11 @@ class EditContactPage(BasePage):
             do not match the expected values.
         """
         assert self.find_element(
-            (By.CSS_SELECTOR, '[id="email"]')).text == email
+            EditContactLocators.email_form).text == email
         assert self.find_element(
-            (By.CSS_SELECTOR, '[id="city"]')).text == city
+            EditContactLocators.city_form).text == city
         assert self.find_element(
-            (By.CSS_SELECTOR, '[id="postalCode"]')).text == postal_code
+            EditContactLocators.postal_code_form).text == postal_code
 
 
 class DeleteContactPage(BasePage):
@@ -94,15 +99,12 @@ class DeleteContactPage(BasePage):
             TimeoutException: If the contact is not deleted
             within the timeout period.
         """
-        contact_row = self.find_element(
-            (By.XPATH, EditContactLocators.contact_row))
+        contact_row = self.find_element(EditContactLocators.contact_row)
         contact_name = contact_row.text
 
-        self.click_element(
-            (By.XPATH, EditContactLocators.contact_row))
+        self.click_element(EditContactLocators.contact_row)
 
-        self.click_element(
-            (By.CSS_SELECTOR, EditContactLocators.delete_contact_btn))
+        self.click_element(EditContactLocators.delete_contact_btn)
 
         alert = self.wait.until(EC.alert_is_present())
         alert.accept()
