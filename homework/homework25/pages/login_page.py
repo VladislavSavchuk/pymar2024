@@ -1,6 +1,5 @@
 """This module contains the class for the login page"""
 
-from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from homework.homework25.page_locators.logining_page \
     import LoginPageLocators
