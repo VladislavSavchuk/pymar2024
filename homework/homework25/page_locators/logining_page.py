@@ -10,3 +10,5 @@ class LoginPageLocators:
     input_password = (By.CSS_SELECTOR, "#password")
     # buttons
     submit_btn = (By.CSS_SELECTOR, "#submit")
+    # contact header
+    contacts_header = (By.XPATH, '//*[contains(text(), "Contact List")]')
