@@ -6,8 +6,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common import TimeoutException
 from homework.homework25.pages.login_page import LoginPage
 from homework.homework25.pages.add_contact_page import AddContactPage
-from homework.homework25.pages.edit_contact_page import (
-    EditContactPage, DeleteContactPage)
+from homework.homework25.pages.edit_contact_page \
+    import EditContactPage, DeleteContactPage
 from homework.homework25.resources.constants import EMAIL, PASSWORD
 
 loger = logging.getLogger(__name__)
@@ -61,7 +61,8 @@ def test_add_contact(driver):
     }
 
     add_contact_page.add_contact(contact_data)
-    contact_row = driver.find_element(*EditContactPage.contact_row)
+    edit_contact_page = EditContactPage(driver)
+    contact_row = driver.find_element(*edit_contact_page.contact_row)
     assert contact_row is not None
 
     loger.info("Add a new contact - PASSED")
@@ -117,8 +118,9 @@ def test_delete_contact(driver):
 
     contact_deleted = True
     try:
+        edit_contact_page = EditContactPage(driver)
         delete_contact_page.wait.until(
-            EC.presence_of_element_located(EditContactPage.contact_deleted))
+            EC.presence_of_element_located(edit_contact_page.contact_deleted))
         contact_deleted = False
     except TimeoutException:
         pass
