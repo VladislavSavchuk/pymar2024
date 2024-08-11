@@ -1,8 +1,7 @@
 """This module contains the class for the edit contact page"""
-
 from selenium.webdriver.support import expected_conditions as EC
-from homework.homework25.page_locators.update_contact_page import (
-    EditContactLocators)
+from homework.homework25.page_locators.update_contact_page \
+    import EditContactLocators
 from homework.homework25.pages.base_page import BasePage
 
 
@@ -11,17 +10,29 @@ class EditContactPage(BasePage):
     Class representing the edit contact page of the application.
     Inherits from BasePage to provide common page functionalities.
     """
-    contact_deleted = EditContactLocators.contact_deleted
-    contact_row = EditContactLocators.contact_row
-    edit_contact_btn = EditContactLocators.edit_contact_btn
-    delete_contact_btn = EditContactLocators.delete_contact_btn
-    submit_btn = EditContactLocators.submit_btn
-    return_to_contacts_btn = EditContactLocators.return_to_contacts_btn
-    contact_form_fields = {
-        'email': EditContactLocators.email_form,
-        'city': EditContactLocators.city_form,
-        'postal_code': EditContactLocators.postal_code_form
-    }
+
+    def __init__(self, driver):
+        """
+        Initializes the EditContactPage with the provided WebDriver instance
+        and sets up the locators for the Edit Contact page elements.
+
+        Parameters:
+            driver (selenium.webdriver.remote.webdriver.WebDriver):
+                The WebDriver instance used to interact with the browser.
+        """
+        super().__init__(driver)
+        self.contact_deleted = EditContactLocators.contact_deleted
+        self.contact_row = EditContactLocators.contact_row
+        self.edit_contact_btn = EditContactLocators.edit_contact_btn
+        self.delete_contact_btn = EditContactLocators.delete_contact_btn
+        self.submit_btn = EditContactLocators.submit_btn
+        self.return_to_contacts_btn = (
+            EditContactLocators.return_to_contacts_btn)
+        self.contact_form_fields = {
+            'email': EditContactLocators.email_form,
+            'city': EditContactLocators.city_form,
+            'postal_code': EditContactLocators.postal_code_form
+        }
 
     def edit_contact(self, updated_data):
         """
