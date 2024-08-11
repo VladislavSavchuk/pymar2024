@@ -9,17 +9,17 @@ class BasePage:
     A base page class that encapsulates common functionalities
     for interacting with web pages using Selenium WebDriver.
     """
-    def __init__(self, browser):
+    def __init__(self, driver):
         """
         Initializes the BasePage with the provided WebDriver
         instance and sets up the WebDriverWait.
 
         Parameters:
-            browser (selenium.webdriver.remote.webdriver.WebDriver):
+            driver (selenium.webdriver.remote.webdriver.WebDriver):
             The WebDriver instance used to interact with the browser.
         """
-        self.browser = browser
-        self.wait = WebDriverWait(browser, 10)
+        self.driver = driver
+        self.wait = WebDriverWait(driver, 10)
 
     def find_element(self, locator):
         """
@@ -74,5 +74,5 @@ class BasePage:
         if element:
             element.clear()
             element.send_keys(text)
-        else:
-            print(f"Element not found: {locator}")
+            return True
+        return False
