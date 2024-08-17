@@ -11,22 +11,26 @@ class BaseAPI:
         self.base_url = base_url
         self.headers = HEADERS
 
-    def get(self, endpoint, params=None):
+    def get(self, endpoint, params=None, timeout=10):
         """ Get method """
         url = f'{self.base_url}/{endpoint}'
-        return requests.get(url, headers=self.headers, params=params)
+        return requests.get(url, headers=self.headers,
+                            params=params, timeout=timeout)
 
-    def post(self, endpoint, data):
+    def post(self, endpoint, data, timeout=10):
         """ Post method """
         url = f'{self.base_url}/{endpoint}'
-        return requests.post(url, headers=self.headers, json=data)
+        return requests.post(url, headers=self.headers,
+                             json=data, timeout=timeout)
 
-    def put(self, endpoint, data):
+    def put(self, endpoint, data, timeout=10):
         """ Put method """
         url = f'{self.base_url}/{endpoint}'
-        return requests.put(url, headers=self.headers, json=data)
+        return requests.put(url, headers=self.headers,
+                            json=data, timeout=timeout)
 
-    def delete(self, endpoint):
+    def delete(self, endpoint, timeout=10):
         """ Delete method """
         url = f'{self.base_url}/{endpoint}'
-        return requests.delete(url, headers=self.headers)
+        return requests.delete(url, headers=self.headers,
+                               timeout=timeout)

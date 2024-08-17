@@ -16,28 +16,30 @@ class UserAPI(BaseAPI):
     def __init__(self, base_url):
         """ Constructor """
         super().__init__(base_url)
+        self.user_endpoint = '/functions/'
 
     def create_user(self, user_data):
         """ Create user """
-        return self.post('createUser', user_data)
+        return self.post(f'{self.user_endpoint}createUser', user_data)
 
     def get_user(self, user_id):
         """ Get user by ID """
-        return self.get(f'getUser/{user_id}')
+        return self.get(f'{self.user_endpoint}getUser/{user_id}')
 
     def update_user(self, user_id, user_data):
         """ Update user """
-        return self.put(f'updateUser/{user_id}', user_data)
+        return self.put(f'{self.user_endpoint}updateUser/{user_id}',
+                        user_data)
 
     def delete_user(self, user_id):
         """ Delete user """
-        return self.delete(f'deleteUser/{user_id}')
+        return self.delete(f'{self.user_endpoint}deleteUser/{user_id}')
 
     def check_user_status(self, user_id):
         """ Check user status """
-        return self.get(f'checkUserStatus/{user_id}')
+        return self.get(f'{self.user_endpoint}checkUserStatus/{user_id}')
 
     def get_users(self, page=1, limit=10):
         """ Get users """
         params = {'page': page, 'limit': limit}
-        return self.get('getUsers', params=params)
+        return self.get(f'{self.user_endpoint}getUsers', params=params)
