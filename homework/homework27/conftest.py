@@ -1,12 +1,12 @@
 """ This module contains constants used in the tests """
 
 
-""" This module contains constants used in the tests """
-BASE_URL = 'https://alexqa.netlify.app/.netlify/functions'
-TOKEN = ("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQ"
-         "iOiIxMTAxMzY2ODg5ODMxNzQ0OTczMjAiLCJpYXQiOjE3MjM"
-         "4OTY2MDUsImV4cCI6MTcyMzkwMDIwNX0.yOcB8XBzUABj5Tg-"
-         "ytnI2lPa8gqmwvsjS_gNR1JMjoE")
+BASE_URL = 'https://alexqa.netlify.app/.netlify'
+TOKEN = ("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9."
+         "eyJ1c2VySWQiOiIxMTM1Nzk5NzYwNzcxNDUzN"
+         "jQxNzMiLCJpYXQiOjE3MjM5MDE0NzMsImV4cC"
+         "I6MTcyMzkwNTA3M30.MFg9EjAcnHnbifufy3F"
+         "tJkDogQ8AAKDDw2W2_BBlpDw")
 
 HEADERS = {
     'Content-Type': 'application/json',
