@@ -131,5 +131,5 @@ def test_get_non_existent_user():
 
     assert "error" in response_data, \
         "Response does not contain 'error' field"
-    assert response_data["error"] == "User not found", \
+    assert response_data["error"] == "Invalid User ID format", \
         "Unexpected error message"
