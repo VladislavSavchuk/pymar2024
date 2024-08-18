@@ -19,7 +19,8 @@ class LoginPage(BasePage):
         self.input_email = (By.CSS_SELECTOR, "#email")
         self.input_password = (By.CSS_SELECTOR, "#password")
         self.submit_btn = (By.CSS_SELECTOR, "#submit")
-        self.contact_header = (By.XPATH, '//*[contains(text(), "Contact List")]')
+        self.contact_header = (By.XPATH,
+                               '//*[contains(text(), "Contact List")]')
 
     def complete_login(self, email, password):
         """
