@@ -2,16 +2,6 @@
 
 
 BASE_URL = 'https://alexqa.netlify.app/.netlify'
-TOKEN = ("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9."
-         "eyJ1c2VySWQiOiIxMTM1Nzk5NzYwNzcxNDUzN"
-         "jQxNzMiLCJpYXQiOjE3MjM5MDE0NzMsImV4cC"
-         "I6MTcyMzkwNTA3M30.MFg9EjAcnHnbifufy3F"
-         "tJkDogQ8AAKDDw2W2_BBlpDw")
-
-HEADERS = {
-    'Content-Type': 'application/json',
-    'Authorization': f'Bearer {TOKEN}'
-}
 
 user_schema = {
     "type": "object",
