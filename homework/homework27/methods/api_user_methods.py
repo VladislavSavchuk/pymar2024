@@ -13,10 +13,10 @@ def generate_random_email():
 
 class UserAPI(BaseAPI):
     """ User API class """
-    def __init__(self, base_url):
+    def __init__(self, base_url, user_endpoint='/functions/'):
         """ Constructor """
         super().__init__(base_url)
-        self.user_endpoint = '/functions/'
+        self.user_endpoint = user_endpoint
 
     def create_user(self, user_data):
         """ Create user """
