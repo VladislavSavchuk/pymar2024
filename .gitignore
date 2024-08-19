@@ -4,6 +4,10 @@
 *.html
 *.xml
 
+# Ignore configuration files
+config.json
+
+
 __pycache__/
 *.py[cod]
 *$py.class
