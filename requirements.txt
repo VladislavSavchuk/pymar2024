@@ -9,3 +9,4 @@ robotframework~=7.0.1
 selenium~=4.22.0
 requests~=2.31.0
 jsonschema~=4.23.0
+Flask~=3.0.3
